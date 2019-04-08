@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -27,11 +26,14 @@ type TransResult struct {
 	From   string    `json:"from"`
 	To     string    `json:"to"`
 	Result [1]Result `json:"trans_result"`
+	ErrorCode string `json:"error_code"`
+	ErrorMsg  string `json:"error_msg"`
 }
 type Result struct {
 	Src string `json:"src"`
 	Dst string `json:"dst"`
 }
+
 
 //自动生盐
 //入口参数为盐的长度
@@ -57,7 +59,6 @@ func Sign(bi *BaiduInfo) string {
 //翻译 传入需要翻译的语句
 func (bi *BaiduInfo) Translate() string{
 	url := "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + bi.Text + "&from=" + bi.From + "&to=" + bi.To + "&appid=" + bi.AppID + "&salt=" + bi.Salt + "&sign=" + Sign(bi)
-	fmt.Println(url)
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Println("网络异常")
@@ -66,5 +67,9 @@ func (bi *BaiduInfo) Translate() string{
 	body, err := ioutil.ReadAll(resp.Body)
 	var ts TransResult
 	_ = json.Unmarshal(body, &ts)
-	return ts.Result[0].Dst
+	if ts.ErrorCode != "" {
+		return ts.ErrorMsg
+	}else {
+		return ts.Result[0].Dst
+	}
 }
