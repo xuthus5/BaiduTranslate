@@ -26,17 +26,17 @@ func main() {
 	fmt.Println(bi.Translate())
 	
 	bi.To = "wyw"	//文言文
-    fmt.Println(bi.Translate())
-    bi.To = "jp"	//日本语
-    fmt.Println(bi.Translate())
-    bi.To = "kor"	//韩语
-    fmt.Println(bi.Translate())
-    bi.To = "fra"	//法语
-    fmt.Println(bi.Translate())
-    bi.To = "de"	//德语
-    fmt.Println(bi.Translate())
-    bi.To = "ru"	//俄语
-    fmt.Println(bi.Translate())
+    	fmt.Println(bi.Translate())
+    	bi.To = "jp"	//日本语
+    	fmt.Println(bi.Translate())
+    	bi.To = "kor"	//韩语
+    	fmt.Println(bi.Translate())
+    	bi.To = "fra"	//法语
+    	fmt.Println(bi.Translate())
+    	bi.To = "de"	//德语
+    	fmt.Println(bi.Translate())
+    	bi.To = "ru"	//俄语
+    	fmt.Println(bi.Translate())
 }
 ```
 
